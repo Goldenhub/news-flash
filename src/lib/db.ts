@@ -1,13 +1,16 @@
 import Database from 'better-sqlite3';
 import path from 'path';
+import fs from 'fs';
 import type { Article, Category } from './types';
 
-const DB_PATH = path.join(process.cwd(), '.data', 'news.db');
+const DB_DIR = path.join(process.cwd(), '.data');
+const DB_PATH = path.join(DB_DIR, 'news.db');
 
 let _db: Database.Database | null = null;
 
 function getDb(): Database.Database {
   if (!_db) {
+    fs.mkdirSync(DB_DIR, { recursive: true });
     _db = new Database(DB_PATH);
     _db.pragma('journal_mode = WAL');
     _db.pragma('synchronous = NORMAL');
