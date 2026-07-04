@@ -4,6 +4,7 @@ import { getArticle } from '@/lib/db';
 import TTSControls from '@/components/TTSControls';
 import AISummary from '@/components/AISummary';
 import OfflineNotice from '@/components/OfflineNotice';
+import SafeImage from '@/components/SafeImage';
 
 export default async function ArticlePage({
   params,
@@ -23,11 +24,11 @@ export default async function ArticlePage({
   const backHref = from ? `/?category=${encodeURIComponent(from)}` : '/';
 
   return (
-    <main className="min-h-dvh bg-neutral-50 dark:bg-neutral-950">
+    <main className="min-h-dvh bg-teal-bg">
       <div className="max-w-3xl mx-auto px-4 py-10">
         <Link
           href={backHref}
-          className="inline-flex items-center gap-1.5 text-sm text-neutral-400 hover:text-neutral-600 mb-8 transition-colors dark:hover:text-neutral-300"
+          className="inline-flex items-center gap-1.5 text-sm text-white/50 hover:text-white/80 mb-8 transition-colors"
         >
           <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -40,27 +41,27 @@ export default async function ArticlePage({
         <article>
           <div className="mb-8">
             <div className="flex items-center gap-3 mb-4">
-              <span className="px-2.5 py-1 bg-neutral-200/70 text-neutral-700 text-[11px] font-semibold rounded-lg dark:bg-neutral-700/70 dark:text-neutral-300">
+              <span className="px-2.5 py-1 bg-white/15 text-white text-[11px] font-semibold rounded-lg">
                 {article.source}
               </span>
-              <span className="text-xs text-neutral-400 dark:text-neutral-500">
+              <span className="text-xs text-white/50">
                 {new Date(article.published_at).toLocaleDateString('en-US', {
                   weekday: 'short', year: 'numeric', month: 'long', day: 'numeric',
                 })}
               </span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-bold text-neutral-900 leading-tight tracking-tight dark:text-neutral-100">
+            <h1 className="text-2xl md:text-3xl font-bold text-white leading-tight tracking-tight">
               {article.title}
             </h1>
           </div>
 
           {article.image_url && (
             <div className="mb-10 rounded-2xl overflow-hidden">
-              <img src={article.image_url} alt="" className="w-full h-auto max-h-96 object-cover" onError={(e) => (e.target as HTMLImageElement).style.display = 'none'} />
+              <SafeImage src={article.image_url} alt="" className="w-full h-auto max-h-96 object-cover" />
             </div>
           )}
 
-          <div className="mb-10 p-4 rounded-2xl bg-white border border-neutral-200/60 dark:bg-neutral-800/60 dark:border-neutral-700/40">
+          <div className="mb-10 p-4 rounded-2xl bg-teal-card border border-teal-border/60">
             <TTSControls text={`${article.title}. ${displayContent}`} />
           </div>
 
@@ -68,19 +69,19 @@ export default async function ArticlePage({
 
           {displayHtml ? (
             <div
-              className="prose prose-neutral max-w-none dark:prose-invert text-[15px] leading-relaxed [&_p]:mb-4 [&_h2]:mt-8 [&_h2]:mb-3 [&_h2]:font-semibold [&_h2]:text-lg [&_blockquote]:border-l-4 [&_blockquote]:border-neutral-300 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-neutral-600 [&_blockquote]:dark:border-neutral-600 [&_blockquote]:dark:text-neutral-400 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:mb-1 [&_a]:text-blue-600 [&_a]:underline [&_a]:dark:text-blue-400"
+              className="prose prose-invert max-w-none text-[15px] leading-relaxed [&_p]:mb-4 [&_h2]:mt-8 [&_h2]:mb-3 [&_h2]:font-semibold [&_h2]:text-lg [&_blockquote]:border-l-4 [&_blockquote]:border-white/20 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-white/60 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:mb-1 [&_a]:text-teal-accent [&_a]:underline"
               dangerouslySetInnerHTML={{ __html: displayHtml }}
             />
           ) : (
-            <div className="text-neutral-700 leading-[1.75] text-[15px] whitespace-pre-line dark:text-neutral-300">
+            <div className="text-white/80 leading-[1.75] text-[15px] whitespace-pre-line">
               {displayContent}
             </div>
           )}
 
-          <div className="mt-12 pt-6 border-t border-neutral-200/60 dark:border-neutral-800/60 flex items-center justify-between">
+          <div className="mt-12 pt-6 border-t border-teal-border/60 flex items-center justify-between">
             <Link
               href={backHref}
-              className="text-sm text-neutral-500 hover:text-neutral-700 transition-colors dark:hover:text-neutral-300"
+              className="text-sm text-white/50 hover:text-white/80 transition-colors"
             >
               &larr; Back to articles
             </Link>
@@ -88,7 +89,7 @@ export default async function ArticlePage({
               href={article.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-sm text-neutral-500 hover:text-neutral-700 transition-colors dark:hover:text-neutral-300"
+              className="flex items-center gap-1.5 text-sm text-white/50 hover:text-white/80 transition-colors"
             >
               Read original
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

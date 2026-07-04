@@ -13,10 +13,10 @@ export default function ViewToggle({ view }: { view: string }) {
   };
 
   return (
-    <div className="flex items-center gap-1 shrink-0 bg-white border border-neutral-200/60 rounded-xl p-0.5 dark:bg-neutral-800/60 dark:border-neutral-700/40">
+    <div className="flex items-center gap-1 shrink-0 bg-teal-card border border-teal-border/40 rounded-xl p-0.5">
       <button
         onClick={() => setView('grid')}
-        className={`p-1.5 rounded-lg transition-all ${view === 'grid' ? 'bg-neutral-900 text-white shadow-sm dark:bg-white dark:text-neutral-900' : 'text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-300'}`}
+        className={`p-1.5 rounded-lg transition-all ${view === 'grid' ? 'bg-white text-teal-bg shadow-sm' : 'text-white/40 hover:text-white/70'}`}
         aria-label="Grid view"
       >
         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
@@ -25,7 +25,7 @@ export default function ViewToggle({ view }: { view: string }) {
       </button>
       <button
         onClick={() => setView('list')}
-        className={`p-1.5 rounded-lg transition-all ${view === 'list' ? 'bg-neutral-900 text-white shadow-sm dark:bg-white dark:text-neutral-900' : 'text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-300'}`}
+        className={`p-1.5 rounded-lg transition-all ${view === 'list' ? 'bg-white text-teal-bg shadow-sm' : 'text-white/40 hover:text-white/70'}`}
         aria-label="List view"
       >
         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 16 16">

@@ -23,8 +23,8 @@ export default function CategoryTabs() {
           onClick={() => handleSelect(cat.slug)}
           className={`shrink-0 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
             active === cat.slug
-              ? 'bg-neutral-900 text-white shadow-sm dark:bg-white dark:text-neutral-900'
-              : 'bg-white text-neutral-600 hover:bg-neutral-100 border border-neutral-200/60 dark:bg-neutral-800/60 dark:text-neutral-400 dark:border-neutral-700/40 dark:hover:bg-neutral-700/50'
+              ? 'bg-white text-teal-bg shadow-sm'
+              : 'bg-teal-card text-white/70 hover:bg-teal-hover border border-teal-border/40'
           }`}
         >
           {cat.label}

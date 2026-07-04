@@ -46,7 +46,7 @@ export default function RefreshButton({ label = 'Fetch News Now', variant = 'pri
       <button
         onClick={handleClick}
         disabled={!online || status === 'loading'}
-        className="text-[11px] text-neutral-400 hover:text-neutral-600 transition-colors disabled:opacity-30 dark:hover:text-neutral-300"
+        className="text-[11px] text-white/40 hover:text-white/70 transition-colors disabled:opacity-30"
         title={!online ? 'Offline' : undefined}
       >
         {!online ? (
@@ -72,44 +72,44 @@ export default function RefreshButton({ label = 'Fetch News Now', variant = 'pri
       <button
         onClick={handleClick}
         disabled={!online || status === 'loading'}
-        className="px-6 py-2.5 rounded-xl text-sm font-medium transition-colors disabled:opacity-40 ${
+        className={`px-6 py-2.5 rounded-xl text-sm font-medium transition-colors disabled:opacity-40 ${
           online
-            ? 'bg-neutral-900 text-white hover:bg-neutral-800 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200'
-            : 'bg-neutral-200 text-neutral-400 cursor-not-allowed dark:bg-neutral-700 dark:text-neutral-500'
-        }"
+            ? 'bg-white text-teal-bg hover:bg-white/90'
+            : 'bg-white/10 text-white/30 cursor-not-allowed'
+        }`}
       >
         {!online ? 'Offline' : status === 'loading' ? 'Fetching...' : label}
       </button>
 
       {status === 'loading' && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-          <div className="bg-white dark:bg-neutral-800 rounded-2xl p-8 max-w-sm w-full mx-4 shadow-2xl flex flex-col items-center gap-4">
-            <div className="w-10 h-10 border-3 border-neutral-200 border-t-neutral-900 rounded-full animate-spin dark:border-neutral-600 dark:border-t-white" />
-            <p className="text-sm font-medium text-neutral-700 dark:text-neutral-200">Fetching articles from 12 sources...</p>
-            <p className="text-xs text-neutral-400 dark:text-neutral-500">This may take up to a minute</p>
+          <div className="bg-teal-card rounded-2xl p-8 max-w-sm w-full mx-4 shadow-2xl flex flex-col items-center gap-4 border border-teal-border/60">
+            <div className="w-10 h-10 border-3 border-white/20 border-t-white rounded-full animate-spin" />
+            <p className="text-sm font-medium text-white">Fetching articles from 12 sources...</p>
+            <p className="text-xs text-white/50">This may take up to a minute</p>
           </div>
         </div>
       )}
 
       {status === 'done' && result && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-          <div className="bg-white dark:bg-neutral-800 rounded-2xl p-8 max-w-sm w-full mx-4 shadow-2xl">
+          <div className="bg-teal-card rounded-2xl p-8 max-w-sm w-full mx-4 shadow-2xl border border-teal-border/60">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900/40 flex items-center justify-center">
-                <svg className="w-4 h-4 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                <svg className="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
               <div>
-                <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">Done</p>
-                <p className="text-[11px] text-neutral-400 dark:text-neutral-500">{(result.elapsed_ms / 1000).toFixed(1)}s</p>
+                <p className="text-sm font-semibold text-white">Done</p>
+                <p className="text-[11px] text-white/50">{(result.elapsed_ms / 1000).toFixed(1)}s</p>
               </div>
             </div>
-            <div className="space-y-1.5 text-sm text-neutral-600 dark:text-neutral-300">
-              <p><span className="font-medium text-neutral-800 dark:text-neutral-100">{result.fetched}</span> articles fetched</p>
-              <p><span className="font-medium text-neutral-800 dark:text-neutral-100">{result.inserted}</span> new</p>
-              {result.cleaned > 0 && <p><span className="font-medium text-neutral-800 dark:text-neutral-100">{result.cleaned}</span> old cleaned</p>}
-              <p><span className="font-medium text-neutral-800 dark:text-neutral-100">{result.total_articles}</span> total in database</p>
+            <div className="space-y-1.5 text-sm text-white/70">
+              <p><span className="font-medium text-white">{result.fetched}</span> articles fetched</p>
+              <p><span className="font-medium text-white">{result.inserted}</span> new</p>
+              {result.cleaned > 0 && <p><span className="font-medium text-white">{result.cleaned}</span> old cleaned</p>}
+              <p><span className="font-medium text-white">{result.total_articles}</span> total in database</p>
             </div>
           </div>
         </div>
@@ -117,14 +117,14 @@ export default function RefreshButton({ label = 'Fetch News Now', variant = 'pri
 
       {status === 'error' && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-          <div className="bg-white dark:bg-neutral-800 rounded-2xl p-8 max-w-sm w-full mx-4 shadow-2xl">
+          <div className="bg-teal-card rounded-2xl p-8 max-w-sm w-full mx-4 shadow-2xl border border-teal-border/60">
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/40 flex items-center justify-center">
-                <svg className="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center">
+                <svg className="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </div>
-              <p className="text-sm font-semibold text-red-600">Failed</p>
+              <p className="text-sm font-semibold text-red-400">Failed</p>
             </div>
           </div>
         </div>

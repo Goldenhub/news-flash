@@ -15,9 +15,8 @@ function timeAgo(dateStr: string): string {
 }
 
 const GRADIENTS = [
-  'from-blue-600 to-indigo-700', 'from-emerald-600 to-teal-700',
-  'from-violet-600 to-purple-700', 'from-rose-600 to-pink-700',
-  'from-cyan-600 to-blue-700', 'from-amber-600 to-orange-700',
+  'from-teal-600 to-cyan-700', 'from-emerald-600 to-teal-700',
+  'from-cyan-600 to-blue-700', 'from-teal-500 to-emerald-600',
 ];
 
 function hashGradient(url: string): string {
@@ -35,9 +34,9 @@ export default function ArticleCard({ article, currentCategory, listView }: { ar
     return (
       <Link
         href={href}
-        className="group relative flex items-start gap-4 rounded-2xl border border-neutral-200/70 bg-white overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 p-3 dark:border-neutral-700/50 dark:bg-neutral-800/80"
+        className="group relative flex items-start gap-4 rounded-2xl border border-teal-border/60 bg-teal-card overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 p-3"
       >
-        <div className="w-24 h-24 shrink-0 rounded-xl overflow-hidden bg-neutral-100 dark:bg-neutral-700">
+        <div className="w-24 h-24 shrink-0 rounded-xl overflow-hidden bg-teal-hover">
           {article.image_url ? (
             <img
               src={article.image_url}
@@ -55,16 +54,16 @@ export default function ArticleCard({ article, currentCategory, listView }: { ar
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            <span className="px-2 py-0.5 bg-neutral-100 text-neutral-600 text-[10px] font-semibold rounded-md dark:bg-neutral-700 dark:text-neutral-400">
+            <span className="px-2 py-0.5 bg-white/15 text-white/80 text-[10px] font-semibold rounded-md">
               {article.source}
             </span>
-            <span className="text-[10px] text-neutral-400 dark:text-neutral-500">{timeAgo(article.published_at)}</span>
+            <span className="text-[10px] text-white/40">{timeAgo(article.published_at)}</span>
           </div>
-          <h3 className="font-semibold text-[14px] text-neutral-900 leading-snug line-clamp-2 dark:text-neutral-100">
+          <h3 className="font-semibold text-[14px] text-white leading-snug line-clamp-2">
             {article.title}
           </h3>
           {article.description && (
-            <p className="text-xs text-neutral-500 leading-relaxed line-clamp-1 mt-0.5 dark:text-neutral-400">
+            <p className="text-xs text-white/60 leading-relaxed line-clamp-1 mt-0.5">
               {article.description}
             </p>
           )}
@@ -76,9 +75,9 @@ export default function ArticleCard({ article, currentCategory, listView }: { ar
   return (
     <Link
       href={href}
-      className="group relative flex flex-col rounded-2xl border border-neutral-200/70 bg-white overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 dark:border-neutral-700/50 dark:bg-neutral-800/80"
+      className="group relative flex flex-col rounded-2xl border border-teal-border/60 bg-teal-card overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5"
     >
-      <div className="aspect-[16/10] relative overflow-hidden bg-neutral-100 dark:bg-neutral-700">
+      <div className="aspect-[16/10] relative overflow-hidden bg-teal-hover">
         {article.image_url ? (
           <>
             <img
@@ -96,20 +95,20 @@ export default function ArticleCard({ article, currentCategory, listView }: { ar
             </span>
           </div>
         )}
-        <span className="absolute top-3 left-3 px-2.5 py-1 bg-white/90 backdrop-blur-sm text-neutral-800 text-[11px] font-semibold rounded-lg shadow-xs">
+        <span className="absolute top-3 left-3 px-2.5 py-1 bg-teal-bg/80 text-white text-[11px] font-semibold rounded-lg shadow-xs backdrop-blur-sm">
           {article.source}
         </span>
       </div>
       <div className="flex flex-col gap-1.5 p-4">
-        <h3 className="font-semibold text-[15px] text-neutral-900 leading-snug line-clamp-2 dark:text-neutral-100">
+        <h3 className="font-semibold text-[15px] text-white leading-snug line-clamp-2">
           {article.title}
         </h3>
         {article.description && (
-          <p className="text-sm text-neutral-500 leading-relaxed line-clamp-2 dark:text-neutral-400">
+          <p className="text-sm text-white/60 leading-relaxed line-clamp-2">
             {article.description}
           </p>
         )}
-        <span className="text-[11px] text-neutral-400 mt-1 dark:text-neutral-500">
+        <span className="text-[11px] text-white/40 mt-1">
           {timeAgo(article.published_at)}
         </span>
       </div>

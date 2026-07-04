@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: 'NewsFlash',
   description: 'Curated news from trusted sources. Auto-clears after 7 days.',
   manifest: '/manifest.json',
-  other: { 'theme-color': '#0d9488' },
+  other: { 'theme-color': '#045D5D' },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

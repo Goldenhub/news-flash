@@ -31,7 +31,7 @@ export default function TTSControls({ text }: { text: string }) {
         {!speaking ? (
           <button
             onClick={() => speak(text)}
-            className="flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white rounded-lg text-sm font-medium hover:bg-neutral-800 transition-colors dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
+            className="flex items-center gap-2 px-4 py-2 bg-white text-teal-bg rounded-lg text-sm font-medium hover:bg-white/90 transition-colors"
           >
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
               <path d="M8 5v14l11-7z" />
@@ -41,7 +41,7 @@ export default function TTSControls({ text }: { text: string }) {
         ) : (
           <>
             {paused ? (
-              <button onClick={resume} className="flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white rounded-lg text-sm font-medium hover:bg-neutral-800 transition-colors dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200">
+              <button onClick={resume} className="flex items-center gap-2 px-4 py-2 bg-white text-teal-bg rounded-lg text-sm font-medium hover:bg-white/90 transition-colors">
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M8 5v14l11-7z" />
                 </svg>
@@ -67,14 +67,14 @@ export default function TTSControls({ text }: { text: string }) {
 
       <div className="flex flex-wrap items-center gap-3">
         <div className="flex items-center gap-1.5">
-          <svg className="w-3.5 h-3.5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-3.5 h-3.5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
           </svg>
-          <span className="text-[11px] text-neutral-500 dark:text-neutral-400">Speed</span>
+          <span className="text-[11px] text-white/40">Speed</span>
           <select
             value={rate}
             onChange={(e) => setRate(parseFloat(e.target.value))}
-            className="text-xs bg-neutral-100 border border-neutral-200 rounded-md px-2 py-1 dark:bg-neutral-700 dark:border-neutral-600 dark:text-neutral-200"
+            className="text-xs bg-teal-hover border border-teal-border/40 rounded-md px-2 py-1 text-white"
           >
             {SPEED_OPTIONS.map(({ label, value }) => (
               <option key={value} value={value}>{label} ({value}x)</option>
@@ -83,14 +83,14 @@ export default function TTSControls({ text }: { text: string }) {
         </div>
 
         <div className="flex items-center gap-1.5">
-          <svg className="w-3.5 h-3.5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-3.5 h-3.5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4" />
           </svg>
-          <span className="text-[11px] text-neutral-500 dark:text-neutral-400">Voice</span>
+          <span className="text-[11px] text-white/40">Voice</span>
           <select
             value={voice || ''}
             onChange={(e) => setVoice(e.target.value)}
-            className="text-xs bg-neutral-100 border border-neutral-200 rounded-md px-2 py-1 max-w-[180px] truncate dark:bg-neutral-700 dark:border-neutral-600 dark:text-neutral-200"
+            className="text-xs bg-teal-hover border border-teal-border/40 rounded-md px-2 py-1 max-w-[180px] truncate text-white"
           >
             {!voice && <option value="">Loading...</option>}
             {Object.entries(voiceGroups).map(([lang, list]) => (

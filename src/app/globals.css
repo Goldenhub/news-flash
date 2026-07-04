@@ -1,34 +1,23 @@
 @import "tailwindcss";
 
-:root {
-  --background: #f8f8f8;
-  --foreground: #111;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #e5e5e5;
-  }
+@theme {
+  --color-teal-bg: #045D5D;
+  --color-teal-card: #0A7070;
+  --color-teal-border: #188080;
+  --color-teal-hover: #0F8080;
+  --color-teal-accent: #FFFFFF;
 }
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
+  background-color: var(--color-teal-bg);
+  color: #fff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-  background-color: #111;
-  color: #fff;
-}
-
-@media (prefers-color-scheme: dark) {
-  ::selection {
-    background-color: #e5e5e5;
-    color: #111;
-  }
+  background-color: #fff;
+  color: #045D5D;
 }
 
 .scrollbar-none {

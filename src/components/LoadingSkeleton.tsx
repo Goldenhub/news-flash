@@ -3,12 +3,12 @@ export default function LoadingSkeleton({ view }: { view?: string }) {
     return (
       <div className="flex flex-col gap-4">
         {Array.from({ length: 6 }).map((_, i) => (
-          <div key={i} className="flex items-start gap-4 rounded-2xl border border-neutral-200/70 bg-white overflow-hidden p-3 dark:border-neutral-700/50 dark:bg-neutral-800/80">
-            <div className="w-24 h-24 shrink-0 rounded-xl bg-neutral-200 animate-pulse dark:bg-neutral-700" />
+          <div key={i} className="flex items-start gap-4 rounded-2xl border border-teal-border/60 bg-teal-card overflow-hidden p-3">
+            <div className="w-24 h-24 shrink-0 rounded-xl bg-white/10 animate-pulse" />
             <div className="flex-1 space-y-2.5">
-              <div className="h-3 bg-neutral-200 rounded-lg animate-pulse w-1/4 dark:bg-neutral-700" />
-              <div className="h-4 bg-neutral-200 rounded-lg animate-pulse w-3/4 dark:bg-neutral-700" />
-              <div className="h-3 bg-neutral-200 rounded-lg animate-pulse w-1/2 dark:bg-neutral-700" />
+              <div className="h-3 bg-white/10 rounded-lg animate-pulse w-1/4" />
+              <div className="h-4 bg-white/10 rounded-lg animate-pulse w-3/4" />
+              <div className="h-3 bg-white/10 rounded-lg animate-pulse w-1/2" />
             </div>
           </div>
         ))}
@@ -19,12 +19,12 @@ export default function LoadingSkeleton({ view }: { view?: string }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
       {Array.from({ length: 6 }).map((_, i) => (
-        <div key={i} className="rounded-2xl border border-neutral-200/70 bg-white overflow-hidden dark:border-neutral-700/50 dark:bg-neutral-800/80">
-          <div className="aspect-[16/10] bg-neutral-200 animate-pulse dark:bg-neutral-700" />
+        <div key={i} className="rounded-2xl border border-teal-border/60 bg-teal-card overflow-hidden">
+          <div className="aspect-[16/10] bg-white/10 animate-pulse" />
           <div className="p-4 space-y-3">
-            <div className="h-4 bg-neutral-200 rounded-lg animate-pulse w-3/4 dark:bg-neutral-700" />
-            <div className="h-3 bg-neutral-200 rounded-lg animate-pulse w-full dark:bg-neutral-700" />
-            <div className="h-3 bg-neutral-200 rounded-lg animate-pulse w-1/3 dark:bg-neutral-700" />
+            <div className="h-4 bg-white/10 rounded-lg animate-pulse w-3/4" />
+            <div className="h-3 bg-white/10 rounded-lg animate-pulse w-full" />
+            <div className="h-3 bg-white/10 rounded-lg animate-pulse w-1/3" />
           </div>
         </div>
       ))}
