@@ -5,6 +5,7 @@ import CategoryTabs from '@/components/CategoryTabs';
 import ArticleCard from '@/components/ArticleCard';
 import LoadingSkeleton from '@/components/LoadingSkeleton';
 import ViewToggle from '@/components/ViewToggle';
+import RefreshButton from '@/components/RefreshButton';
 import { Suspense } from 'react';
 
 const validCategories: Category[] = CATEGORIES.map((c) => c.slug);
@@ -38,14 +39,7 @@ export default async function Home({
           <p className="text-sm text-neutral-500 mb-7 max-w-xs text-center leading-relaxed dark:text-neutral-400">
             Your daily brief is empty. Hit the button below or set up a cron job to fetch the latest news.
           </p>
-          <form action="/api/refresh" method="POST">
-            <button
-              type="submit"
-              className="px-6 py-2.5 bg-neutral-900 text-white rounded-xl text-sm font-medium hover:bg-neutral-800 transition-colors dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
-            >
-              Fetch News Now
-            </button>
-          </form>
+          <RefreshButton />
         </div>
       </main>
     );
@@ -88,9 +82,12 @@ function Header() {
         <div>
           <h1 className="text-lg font-bold tracking-tight text-neutral-900 dark:text-neutral-100">NewsFlash</h1>
         </div>
-        <span className="text-[11px] text-neutral-400 dark:text-neutral-500">
-          {SOURCES.length} sources &middot; 7-day auto-clean
-        </span>
+        <div className="flex items-center gap-3">
+          <span className="text-[11px] text-neutral-400 dark:text-neutral-500">
+            {SOURCES.length} sources &middot; 7-day auto-clean
+          </span>
+          <RefreshButton label="Refresh" variant="header" />
+        </div>
       </div>
     </header>
   );

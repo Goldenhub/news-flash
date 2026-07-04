@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NewsFlash
+
+A morning news aggregator that fetches articles across 6 categories, displays them as flashcards with grid/list toggle, reads articles aloud via TTS, and summarizes them with AI. All storage is local SQLite with 7-day auto-clean.
+
+## Categories
+
+- Nigerian Politics
+- World News
+- Tech News
+- Investment Banking
+- Finance
+- Soccer
+
+## Features
+
+- **RSS feed aggregation** — 18 sources across 6 categories; full article content extracted via Mozilla Readability
+- **Flashcard UI** — grid or list view with image/gradient fallback, source badge, time-ago timestamps
+- **Text-to-Speech** — play/pause/resume/stop with selectable voice and speed (0.9x–1.4x)
+- **AI Summary** — summarizes any article via Gemini Flash (free tier)
+- **Category tabs** — filter articles; selection persists through article navigation
+- **Daily auto-clean** — articles older than 7 days are deleted automatically
+- **Dark mode** — respects `prefers-color-scheme`
+
+## API Endpoints
+
+| Endpoint | Method | Description |
+|---|---|---|
+| `/api/refresh` | POST | Fetches all sources immediately |
+| `/api/cron?key=SECRET` | GET | Auth-protected cron trigger (set `CRON_SECRET` env) |
+| `/api/news?category=&page=&limit=` | GET | Paginated article data |
+| `/api/summarize` | POST | AI summary via Gemini (`{ id }`) |
+| `/api/health` | GET | Health check |
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
+cp .env.local.example .env.local  # Add GEMINI_API_KEY and CRON_SECRET
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000). Click **Fetch News Now** to populate articles.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable | Required | Description |
+|---|---|---|
+| `CRON_SECRET` | Yes | Shared secret for `/api/cron` auth |
+| `GEMINI_API_KEY` | For AI Summary | Free key from https://aistudio.google.com/apikey |
 
-## Learn More
+## RSS Sources
 
-To learn more about Next.js, take a look at the following resources:
+All sources are defined in `src/lib/sources.ts` — add more by appending to the array. Each source needs a name, RSS URL, and category slug.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Tech Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Next.js 16 (App Router, TypeScript)
+- Tailwind CSS v4
+- SQLite via better-sqlite3
+- Mozilla Readability + jsdom for full-text extraction
+- @google/genai for AI summaries
+- Web Speech API for TTS
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Deploy to Render. Ensure `CRON_SECRET` and `GEMINI_API_KEY` are set as environment variables.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Set up a daily cron job at cron-job.org pointing to:
+```
+https://your-app.onrender.com/api/cron?key=YOUR_CRON_SECRET
+```
