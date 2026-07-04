@@ -137,7 +137,7 @@ async function enrichArticles(articles: Article[]): Promise<Article[]> {
         if (hasGoodContent) return article;
         const full = await fetchFullContent(article.url);
         if (full && full.text.length > article.content.length) {
-          return { ...article, content: full.text, content_html: full.html };
+          return { ...article, content: full.text, content_html: full.html.replace(/<img\s/g, '<img onerror="this.style.display=\'none\'" ') };
         }
         return article;
       })

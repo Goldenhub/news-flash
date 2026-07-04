@@ -6,6 +6,7 @@ import ArticleCard from '@/components/ArticleCard';
 import LoadingSkeleton from '@/components/LoadingSkeleton';
 import ViewToggle from '@/components/ViewToggle';
 import RefreshButton from '@/components/RefreshButton';
+import ArticlePrefetcher from '@/components/ArticlePrefetcher';
 import { Suspense } from 'react';
 
 const validCategories: Category[] = CATEGORIES.map((c) => c.slug);
@@ -52,7 +53,7 @@ export default async function Home({
     <main className="min-h-dvh bg-neutral-50 dark:bg-neutral-950">
       <Header />
       <div className="max-w-6xl mx-auto px-4 pb-16">
-        <div className="mb-7 flex items-center justify-between gap-4">
+          <div className="mb-7 flex items-center justify-between gap-4">
           <div className="flex-1 min-w-0">
             <CategoryTabs />
           </div>
@@ -63,11 +64,14 @@ export default async function Home({
           {articles.length === 0 ? (
             <p className="text-center text-neutral-400 py-20 text-sm dark:text-neutral-500">No articles in this category yet.</p>
           ) : (
-            <div className={view === 'list' ? 'flex flex-col gap-4' : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5'}>
-              {articles.map((article) => (
-                <ArticleCard key={article.id} article={article} currentCategory={c} listView={view === 'list'} />
-              ))}
-            </div>
+            <>
+              <div className={view === 'list' ? 'flex flex-col gap-4' : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5'}>
+                {articles.map((article) => (
+                  <ArticleCard key={article.id} article={article} currentCategory={c} listView={view === 'list'} />
+                ))}
+              </div>
+              <ArticlePrefetcher ids={articles.map((a) => a.id)} />
+            </>
           )}
         </Suspense>
       </div>

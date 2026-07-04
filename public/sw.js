@@ -28,6 +28,11 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  if (url.pathname.startsWith('/article/')) {
+    event.respondWith(networkThenCache(request));
+    return;
+  }
+
   if (request.mode === 'navigate') {
     event.respondWith(networkThenCache(request));
     return;

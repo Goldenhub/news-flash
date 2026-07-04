@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { getArticle } from '@/lib/db';
 import TTSControls from '@/components/TTSControls';
 import AISummary from '@/components/AISummary';
+import OfflineNotice from '@/components/OfflineNotice';
 
 export default async function ArticlePage({
   params,
@@ -34,6 +35,8 @@ export default async function ArticlePage({
           Back
         </Link>
 
+        <OfflineNotice />
+
         <article>
           <div className="mb-8">
             <div className="flex items-center gap-3 mb-4">
@@ -53,7 +56,7 @@ export default async function ArticlePage({
 
           {article.image_url && (
             <div className="mb-10 rounded-2xl overflow-hidden">
-              <img src={article.image_url} alt="" className="w-full h-auto max-h-96 object-cover" />
+              <img src={article.image_url} alt="" className="w-full h-auto max-h-96 object-cover" onError={(e) => (e.target as HTMLImageElement).style.display = 'none'} />
             </div>
           )}
 
