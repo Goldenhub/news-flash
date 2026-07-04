@@ -26,10 +26,52 @@ function hashGradient(url: string): string {
   return GRADIENTS[Math.abs(hash) % GRADIENTS.length];
 }
 
-export default function ArticleCard({ article, currentCategory }: { article: Article; currentCategory?: string }) {
+export default function ArticleCard({ article, currentCategory, listView }: { article: Article; currentCategory?: string; listView?: boolean }) {
   const href = currentCategory
     ? `/article/${article.id}?from=${encodeURIComponent(currentCategory)}`
     : `/article/${article.id}`;
+
+  if (listView) {
+    return (
+      <Link
+        href={href}
+        className="group relative flex items-start gap-4 rounded-2xl border border-neutral-200/70 bg-white overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 p-3 dark:border-neutral-700/50 dark:bg-neutral-800/80"
+      >
+        <div className="w-24 h-24 shrink-0 rounded-xl overflow-hidden bg-neutral-100 dark:bg-neutral-700">
+          {article.image_url ? (
+            <img
+              src={article.image_url}
+              alt=""
+              className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+              loading="lazy"
+            />
+          ) : (
+            <div className={`w-full h-full bg-gradient-to-br ${hashGradient(article.url)} flex items-center justify-center`}>
+              <span className="text-white/20 text-3xl font-black tracking-tight select-none">
+                {article.source.charAt(0)}
+              </span>
+            </div>
+          )}
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="px-2 py-0.5 bg-neutral-100 text-neutral-600 text-[10px] font-semibold rounded-md dark:bg-neutral-700 dark:text-neutral-400">
+              {article.source}
+            </span>
+            <span className="text-[10px] text-neutral-400 dark:text-neutral-500">{timeAgo(article.published_at)}</span>
+          </div>
+          <h3 className="font-semibold text-[14px] text-neutral-900 leading-snug line-clamp-2 dark:text-neutral-100">
+            {article.title}
+          </h3>
+          {article.description && (
+            <p className="text-xs text-neutral-500 leading-relaxed line-clamp-1 mt-0.5 dark:text-neutral-400">
+              {article.description}
+            </p>
+          )}
+        </div>
+      </Link>
+    );
+  }
 
   return (
     <Link

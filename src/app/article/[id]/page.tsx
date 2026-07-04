@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getArticle } from '@/lib/db';
 import TTSControls from '@/components/TTSControls';
+import AISummary from '@/components/AISummary';
 
 export default async function ArticlePage({
   params,
@@ -18,7 +19,7 @@ export default async function ArticlePage({
 
   const displayContent = article.content || article.description || 'No content available.';
   const displayHtml = article.content_html || null;
-  const backHref = from && from !== 'all' ? `/?category=${encodeURIComponent(from)}` : '/';
+  const backHref = from ? `/?category=${encodeURIComponent(from)}` : '/';
 
   return (
     <main className="min-h-dvh bg-neutral-50 dark:bg-neutral-950">
@@ -59,6 +60,8 @@ export default async function ArticlePage({
           <div className="mb-10 p-4 rounded-2xl bg-white border border-neutral-200/60 dark:bg-neutral-800/60 dark:border-neutral-700/40">
             <TTSControls text={`${article.title}. ${displayContent}`} />
           </div>
+
+          <AISummary articleId={id} />
 
           {displayHtml ? (
             <div

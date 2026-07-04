@@ -1,4 +1,4 @@
-export type Category = 'nigerian-politics' | 'world' | 'tech';
+export type Category = 'nigerian-politics' | 'world' | 'tech' | 'investment-banking' | 'finance' | 'soccer';
 
 export interface Article {
   id: string;

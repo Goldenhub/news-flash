@@ -11,14 +11,6 @@ const SPEED_OPTIONS = [
   { label: 'Fastest', value: 1.4 },
 ];
 
-function microsoftVoices(voices: SpeechSynthesisVoice[]) {
-  return voices.filter((v) => {
-    const isMicrosoft = v.name.includes('Microsoft') && v.name.includes('Online');
-    const isEnglish = v.lang === 'en-US' || v.lang === 'en-GB';
-    return isMicrosoft && isEnglish;
-  });
-}
-
 function groupVoices(voices: SpeechSynthesisVoice[]) {
   const groups: Record<string, SpeechSynthesisVoice[]> = {};
   for (const v of voices) {
@@ -30,8 +22,8 @@ function groupVoices(voices: SpeechSynthesisVoice[]) {
 
 export default function TTSControls({ text }: { text: string }) {
   const { speak, pause, resume, stop, speaking, paused, rate, setRate, voice, voices, setVoice } = useSpeech();
-  const msVoices = microsoftVoices(voices);
-  const voiceGroups = groupVoices(msVoices);
+  const englishVoices = voices.filter((v) => v.lang.startsWith('en'));
+  const voiceGroups = groupVoices(englishVoices);
 
   return (
     <div className="space-y-3">

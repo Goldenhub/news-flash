@@ -4,20 +4,22 @@ import { CATEGORIES, SOURCES } from '@/lib/sources';
 import CategoryTabs from '@/components/CategoryTabs';
 import ArticleCard from '@/components/ArticleCard';
 import LoadingSkeleton from '@/components/LoadingSkeleton';
+import ViewToggle from '@/components/ViewToggle';
 import { Suspense } from 'react';
 
-const validCategories: Category[] = ['nigerian-politics', 'world', 'tech'];
+const validCategories: Category[] = CATEGORIES.map((c) => c.slug);
 
 export default async function Home({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string; page?: string }>;
+  searchParams: Promise<{ category?: string; page?: string; view?: string }>;
 }) {
   const params = await searchParams;
   const category = params.category && validCategories.includes(params.category as Category)
     ? (params.category as Category)
     : undefined;
   const page = Math.max(1, parseInt(params.page || '1', 10));
+  const view = params.view === 'list' ? 'list' : 'grid';
 
   const total = articleCount();
   const isEmpty = total === 0;
@@ -49,27 +51,29 @@ export default async function Home({
     );
   }
 
-  const { articles } = getArticles(category, page);
+  const c = category || CATEGORIES[0].slug;
+  const { articles } = getArticles(c, page);
 
   return (
     <main className="min-h-dvh bg-neutral-50 dark:bg-neutral-950">
       <Header />
       <div className="max-w-6xl mx-auto px-4 pb-16">
-        <div className="mb-7">
-          <CategoryTabs />
+        <div className="mb-7 flex items-center justify-between gap-4">
+          <div className="flex-1 min-w-0">
+            <CategoryTabs />
+          </div>
+          <ViewToggle view={view} />
         </div>
 
-        <Suspense fallback={<LoadingSkeleton />}>
+        <Suspense fallback={<LoadingSkeleton view={view} />}>
           {articles.length === 0 ? (
             <p className="text-center text-neutral-400 py-20 text-sm dark:text-neutral-500">No articles in this category yet.</p>
           ) : (
-            <>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                {articles.map((article) => (
-                  <ArticleCard key={article.id} article={article} currentCategory={category || 'all'} />
-                ))}
-              </div>
-            </>
+            <div className={view === 'list' ? 'flex flex-col gap-4' : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5'}>
+              {articles.map((article) => (
+                <ArticleCard key={article.id} article={article} currentCategory={c} listView={view === 'list'} />
+              ))}
+            </div>
           )}
         </Suspense>
       </div>

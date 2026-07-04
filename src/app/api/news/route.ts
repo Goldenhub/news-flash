@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
   const page = Math.max(1, parseInt(request.nextUrl.searchParams.get('page') || '1', 10));
   const limit = Math.min(50, Math.max(1, parseInt(request.nextUrl.searchParams.get('limit') || '30', 10)));
 
-  const validCategories: Category[] = ['nigerian-politics', 'world', 'tech'];
+  const validCategories: Category[] = ['nigerian-politics', 'world', 'tech', 'investment-banking', 'finance', 'soccer'];
   const cat = category && validCategories.includes(category) ? category : undefined;
 
   const { articles, total } = getArticles(cat, page, limit);

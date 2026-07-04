@@ -26,16 +26,36 @@ export function useSpeech() {
   const voiceRef = useRef<SpeechSynthesisVoice | null>(null);
 
   useEffect(() => {
-    const init = () => {
+    let poll: ReturnType<typeof setInterval> | null = null;
+    let tries = 0;
+
+    const load = () => {
       const all = window.speechSynthesis.getVoices();
-      setAvailableVoices(all);
-      const best = findBestVoice(all);
-      setVoiceState(best);
-      voiceRef.current = best;
+      if (all.length > 0) {
+        setAvailableVoices(all);
+        const best = findBestVoice(all);
+        setVoiceState(best);
+        voiceRef.current = best;
+        if (poll) clearInterval(poll);
+        return true;
+      }
+      return false;
     };
-    if (window.speechSynthesis.getVoices().length) init();
-    window.speechSynthesis.addEventListener('voiceschanged', init);
-    return () => window.speechSynthesis.removeEventListener('voiceschanged', init);
+
+    window.speechSynthesis.addEventListener('voiceschanged', load);
+    if (!load()) {
+      poll = setInterval(() => {
+        tries++;
+        if (load() || tries > 20) {
+          if (poll) clearInterval(poll);
+        }
+      }, 300);
+    }
+
+    return () => {
+      window.speechSynthesis.removeEventListener('voiceschanged', load);
+      if (poll) clearInterval(poll);
+    };
   }, []);
 
   const stop = useCallback(() => {

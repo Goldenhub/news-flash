@@ -84,7 +84,7 @@ async function fetchFullContent(url: string): Promise<{ text: string; html: stri
   }
 }
 
-async function fetchSource(source: Source, maxArticles: number = 15): Promise<Article[]> {
+async function fetchSource(source: Source, maxArticles: number = 25): Promise<Article[]> {
   const articles: Article[] = [];
 
   try {
@@ -152,7 +152,7 @@ async function enrichArticles(articles: Article[]): Promise<Article[]> {
 const CATEGORY_ARTICLES_LIMIT = 10;
 
 export async function fetchAllSources(): Promise<{ articles: Article[]; fetched: number; errors: number }> {
-  const results = await Promise.allSettled(SOURCES.map((s) => fetchSource(s, 15)));
+  const results = await Promise.allSettled(SOURCES.map((s) => fetchSource(s, 25)));
 
   let allArticles: Article[] = [];
   let errors = 0;
